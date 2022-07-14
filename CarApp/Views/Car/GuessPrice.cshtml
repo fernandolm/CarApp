@@ -7,9 +7,13 @@
 <div class="container p-3 my-3 border">
     <h1>Guess the Price</h1>
     <hr />
-    <div style="background-color:forestgreen;text-align:center;font: 3.2em 'Fira Sans', sans-serif;padding:5px;width:100%;">
-        @ViewBag.message
-    </div>
+    @if(ViewBag.message != null)
+    {
+        <div style="background-color:forestgreen;text-align:center;font: 2.2em 'Fira Sans', sans-serif;padding:5px;width:100%;color:white;">
+            @ViewBag.message
+        </div>
+    }
+    <form asp-action="GuessPrice">
     <dl class="row">
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.Make)
@@ -45,14 +49,10 @@
             @Html.DisplayNameFor(model => model.Price)
         </dt>
         <dd class="col-sm-9">
-            @Html.DisplayText("price")
+            @Html.TextBox("price", "", new { maxlength = "10", onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" })
         </dd>
-    </dl>
-    <form asp-action="GuessPrice">
-        <input type="hidden" asp-for="Id" />
-        <input class="btn btn-primary" type="submit" value="Try" />
+    </dl>    
+    <input type="hidden" asp-for="Id" />
+    <input class="btn btn-primary" type="submit" value="Try" />
     </form>
-    <div>
-        <a class="btn btn-danger" asp-action="Index">Back</a>
-    </div>
 </div>

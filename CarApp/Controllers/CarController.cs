@@ -7,15 +7,35 @@ namespace CarApp.Controllers
     public class CarController : Controller
     {
         private readonly ICarService carService;
+        private readonly int maxGuessAttempts;
+        private readonly IConfiguration configuration;
+        private static int numberOfGuessAttempts = 0;
 
-        public CarController(ICarService carService)
+        public CarController(ICarService carService, IConfiguration configuration)
         {
             this.carService = carService;
+            this.configuration = configuration;
+
+            maxGuessAttempts = Convert.ToInt32(configuration["MaxGuessAttempts"]);
+        }
+
+        private async Task<int> GenerateRandomId() {
+            var cars = await carService.Get();
+            var maxId = 1;
+
+            if (cars != null && cars.Count > 0) {
+                Random randomNumber = new();
+                maxId = randomNumber.Next(cars.Min(car => car.Id), cars.Max(car => car.Id));
+            }
+
+            return maxId;
         }
 
         // GET: CarController
         public async Task<IActionResult> Index()
         {
+            ViewBag.CarId = GenerateRandomId().Result;
+
             var cars = await carService.Get();
             return View(cars);
         }
@@ -98,6 +118,8 @@ namespace CarApp.Controllers
 
         public async Task<IActionResult> GuessPrice(int? id)
         {
+            ViewBag.CarId = GenerateRandomId().Result;
+
             if (id == null)
             {
                 return NotFound();
@@ -124,11 +146,14 @@ namespace CarApp.Controllers
                 return NotFound();
             }
 
-            var guessedPrice = Request.Form["price"];
+            var guessedPrice = Request.Form["price"] == "" ? 0 : Convert.ToDecimal(Request.Form["price"]);
 
-            if (car.Price == guessedPrice) {
-                ViewBag.message = "Great Job!";
+            if (car.Price == guessedPrice && numberOfGuessAttempts <= maxGuessAttempts) {
+                ViewBag.message = "Great Job! The price is $" + guessedPrice;
+                numberOfGuessAttempts = 0;
             }
+
+            numberOfGuessAttempts++;
 
             return View(car);
         }

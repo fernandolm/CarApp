@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Car List</h1>
+<h1>Cars</h1>
 
 <p style="text-align:right;margin-right:20px;">
-    <a class="btn btn-outline-primary" asp-action="Save">Create New</a>
+    <a class="btn btn-outline-primary" asp-action="AddOrEdit">Create New</a>
 </p>
 <div class="table-responsive">
     <table class="table">
@@ -68,7 +68,7 @@
                 </td>
                 <td>
                 <td class="text-center">
-                    <a asp-action="Save" class="btn btn-outline-primary"  asp-route-carId ="@item.Id">Edit</a>
+                    <a asp-action="AddOrEdit" class="btn btn-outline-primary"  asp-route-carId ="@item.Id">Edit</a>
                 </td>
                 <td class="text-center">
                     <a asp-action="Details" class="btn btn-outline-info"  asp-route-carId="@item.Id">Details</a>
