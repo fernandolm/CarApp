@@ -1,0 +1,58 @@
+﻿@model CarApp.Models.Car
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Deleting Car</h2>
+
+<h3>Would you like to continue?</h3>
+<div class="container p-3 my-3 border">
+    <hr />
+        <dl class="row">
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Make)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Make)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Model)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Model)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Year)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Year)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Doors)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Doors)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Color)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Color)
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <input class="btn btn-primary" type="submit" value="Yes" />
+            <a class="btn btn-danger" asp-action="Index">No</a>
+        </form>
+
+ </div>

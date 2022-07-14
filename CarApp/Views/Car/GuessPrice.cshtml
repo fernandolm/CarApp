@@ -1,0 +1,58 @@
+﻿@model CarApp.Models.Car
+@{
+    ViewData["Title"] = "Guess the Price";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container p-3 my-3 border">
+    <h1>Guess the Price</h1>
+    <hr />
+    <div style="background-color:forestgreen;text-align:center;font: 3.2em 'Fira Sans', sans-serif;padding:5px;width:100%;">
+        @ViewBag.message
+    </div>
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Make)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Make)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Doors)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Doors)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayText("price")
+        </dd>
+    </dl>
+    <form asp-action="GuessPrice">
+        <input type="hidden" asp-for="Id" />
+        <input class="btn btn-primary" type="submit" value="Try" />
+    </form>
+    <div>
+        <a class="btn btn-danger" asp-action="Index">Back</a>
+    </div>
+</div>

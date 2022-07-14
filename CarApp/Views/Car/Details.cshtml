@@ -1,0 +1,52 @@
+﻿@model CarApp.Models.Car
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container p-3 my-3 border">
+    <h1>Car Details</h1>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Make)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Make)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Doors)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Doors)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
+    <div>
+        <a class="btn btn-primary" asp-action="AddOrEdit" asp-route-employeeId="@Model.Id">Edit</a>
+        <a class="btn btn-danger" asp-action="Index">Back</a>
+    </div>
+</div>
