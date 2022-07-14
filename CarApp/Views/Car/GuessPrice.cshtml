@@ -9,8 +9,14 @@
     <hr />
     @if(ViewBag.message != null)
     {
-        <div style="background-color:forestgreen;text-align:center;font: 2.2em 'Fira Sans', sans-serif;padding:5px;width:100%;color:white;">
+        <div style="background-color:seagreen;text-align:center;font: 1.8em 'Fira Sans', sans-serif;padding:5px;width:100%;color:white;">
             @ViewBag.message
+        </div>
+    }
+    @if(ViewBag.messageMaxGuestAttempts != null)
+    {
+        <div style="background-color:orangered;text-align:center;font: 1.8em 'Fira Sans', sans-serif;padding:5px;width:100%;color:white;">
+            @ViewBag.messageMaxGuestAttempts
         </div>
     }
     <form asp-action="GuessPrice">
@@ -49,10 +55,11 @@
             @Html.DisplayNameFor(model => model.Price)
         </dt>
         <dd class="col-sm-9">
-            @Html.TextBox("price", "", new { maxlength = "10", onkeypress = "return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" })
+            @Html.TextBox("price", "", new { maxlength = "10", onkeypress = "return allowOnlyNumbers(event);" })
         </dd>
     </dl>    
     <input type="hidden" asp-for="Id" />
-    <input class="btn btn-primary" type="submit" value="Try" />
+        <input class="btn btn-primary" type="submit" value="Try" />
+        <a class="btn btn-danger" asp-action="Index">Back</a>
     </form>
 </div>

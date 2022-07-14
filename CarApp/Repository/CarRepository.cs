@@ -19,6 +19,9 @@ namespace CarApp.Repository
             {
                 Delete(car.Id);
             }
+            else {
+                car.Id = cars.Max(c => c.Id) + 1;
+            }
 
             cars.Add(car);
         }

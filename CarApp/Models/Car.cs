@@ -12,6 +12,6 @@ namespace CarApp.Models
         public int Year { get; set; }
         public int Doors { get; set; }
         public string Color { get; set; }
-        public decimal Price { get; set; }
+        public int Price { get; set; }
     }
 }

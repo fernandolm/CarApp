@@ -19,24 +19,25 @@ namespace CarApp.Controllers
             maxGuessAttempts = Convert.ToInt32(configuration["MaxGuessAttempts"]);
         }
 
-        private async Task<int> GenerateRandomId() {
-            var cars = await carService.Get();
-            var maxId = 1;
+        private Task<int> GenerateRandomId() {
+            var cars = carService.Get().Result;
+            var randomCarIndex = 0;
+            var randomId = 0;
 
             if (cars != null && cars.Count > 0) {
                 Random randomNumber = new();
-                maxId = randomNumber.Next(cars.Min(car => car.Id), cars.Max(car => car.Id));
+                randomCarIndex = randomNumber.Next(0, cars.Count);
+                randomId = cars.ElementAt(randomCarIndex).Id;
             }
 
-            return maxId;
+            return Task.Run(() => randomId);
         }
 
         // GET: CarController
         public async Task<IActionResult> Index()
         {
-            ViewBag.CarId = GenerateRandomId().Result;
-
             var cars = await carService.Get();
+
             return View(cars);
         }
 
@@ -116,21 +117,23 @@ namespace CarApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> GuessPrice(int? id)
+        public async Task<IActionResult> GuessPrice() //int? id
         {
-            ViewBag.CarId = GenerateRandomId().Result;
+            numberOfGuessAttempts = 0;
 
-            if (id == null)
-            {
-                return NotFound();
-            }
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
 
-            var car = await carService.Find(id.Value);
+            //var car = await carService.Find(id.Value);
+            var randomId = await GenerateRandomId();
+            var car = await carService.Find(randomId);
 
-            if (car == null)
-            {
-                return NotFound();
-            }
+            //if (car == null)
+            //{
+            //    return NotFound();
+            //}
 
             return View(car);
         }
@@ -151,6 +154,11 @@ namespace CarApp.Controllers
             if (car.Price == guessedPrice && numberOfGuessAttempts <= maxGuessAttempts) {
                 ViewBag.message = "Great Job! The price is $" + guessedPrice;
                 numberOfGuessAttempts = 0;
+            }
+
+            if (numberOfGuessAttempts > maxGuessAttempts)
+            {
+                ViewBag.messageMaxGuestAttempts = "Unfortunately you reached the maximum attempts. Max Guess Attempts = " + maxGuessAttempts;
             }
 
             numberOfGuessAttempts++;

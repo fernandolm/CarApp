@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CarApp.styles.css" asp-append-version="true" />
+    <script>
+        function allowOnlyNumbers(event) { 
+            return (event.charCode != 8 && event.charCode == 0 || (event.charCode >= 48 && event.charCode <= 57));
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -23,7 +28,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="GuessPrice" asp-route-id="@ViewBag.CarId">Guess the Price</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Car" asp-action="GuessPrice">Guess the Price</a>
                         </li>
                     </ul>
                 </div>
